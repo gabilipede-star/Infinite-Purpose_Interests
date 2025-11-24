@@ -224,9 +224,10 @@
         }
         
         textarea {
-            overflow: hidden;
-            resize: none;
-            min-height: 80px;
+    overflow: visible !important;
+    resize: vertical !important;
+    min-height: 80px;
+}
         }
         
         textarea:focus, input[type="text"]:focus {
@@ -947,5 +948,22 @@
             loadFromLocalStorage();
         });
     </script>
+<script>
+// Auto-expand textareas as user types
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('textarea').forEach(textarea => {
+        function adjustHeight() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        }
+        
+        textarea.addEventListener('input', adjustHeight);
+        textarea.addEventListener('change', adjustHeight);
+        
+        // Adjust for any pre-filled content
+        adjustHeight.call(textarea);
+    });
+});
+</script>
 </body>
 </html>
